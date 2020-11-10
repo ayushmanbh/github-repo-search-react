@@ -27,7 +27,7 @@ const Results = () => {
                 </div>
               </div>
             </li>
-          }) : <small className="font-italic">Somewhat empty here</small>}
+          }) : <small className="font-italic">So empty here</small>}
         </ul>
       </>
     )
