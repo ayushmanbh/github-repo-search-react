@@ -3,6 +3,10 @@ import React, { useState, useContext } from 'react';
 const AppContext = React.createContext();
 
 const AppProvider = ({ children }) => {
+  const [user, setUser] = useState({
+    isLoggedIn: false,
+    userInfo: null
+  })
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState({ state: false, msg: '' });
   const [query, setQuery] = useState('');
@@ -15,10 +19,12 @@ const AppProvider = ({ children }) => {
   return (
     <AppContext.Provider
       value={{
+        user,
         isLoading,
         error,
         query,
         results,
+        setUser,
         showError,
         setIsLoading,
         setQuery,

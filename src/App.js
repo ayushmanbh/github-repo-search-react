@@ -1,15 +1,21 @@
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+
 import './App.css';
+import Login from './components/Auth/Login';
+import Home from './components/Home';
 import Header from './components/Header'
-import SearchBar from './components/SearchBar'
-import Results from './components/Results'
 
 function App() {
   return (
-    <div className="container">
-      <Header />
-      <SearchBar />
-      <Results />
-    </div>
+    <Router>
+      <div className="container">
+        <Header />
+        <Switch>
+          <Route path='/' exact component={Home} />
+          <Route path='/login' component={Login} />
+        </Switch>
+      </div>
+    </Router>
   );
 }
 
