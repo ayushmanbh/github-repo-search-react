@@ -5,9 +5,11 @@ const socialMediaAuth = (provider) => {
     .auth()
     .signInWithPopup(provider)
     .then((result) => {
+      console.log(result.user);
       return result.user
     })
     .catch(error => {
+      console.log(error);
       return error
     })
 }

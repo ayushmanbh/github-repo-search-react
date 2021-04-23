@@ -5,7 +5,7 @@ import SearchBar from './SearchBar'
 
 const Home = () => {
   const { user } = useGlobalContext()
-  return user?.isLoggedIn ? (
+  return user.isLoggedIn ? (
     <>
       <SearchBar />
       <Results />

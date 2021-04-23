@@ -4,31 +4,41 @@ import { useGlobalContext } from '../../context'
 import socialMediaAuth from '../../services/auth'
 
 const Login = () => {
-  const { user, setUser } = useGlobalContext()
+  const { user, setUser, error, showError } = useGlobalContext()
   const history = useHistory()
 
   const handleOnClick = async (provider) => {
-    try {
-      const result = await socialMediaAuth(provider)
-      console.log(result);
+    const result = await socialMediaAuth(provider)
+    if (result.email) {
       const userInfo = {
         uid: result?.uid,
         displayName: result?.displayName,
         email: result?.email,
-        photoUrl: result?.photoUrl
+        photoUrl: result?.photoURL
       }
       setUser({ isLoggedIn: true, userInfo })
       history.push('/')
-    } catch (error) {
-      console.log(error);
+    } else {
+      showError(true, 'Oops something went wrong :( Please try again.')
     }
+  }
+  let errormsg = null
+  if (error.state) {
+    errormsg = (
+      <div>
+        <p className='text-danger'>{error.msg}</p>
+      </div>
+    )
   }
 
   let loginOptions = (
-    <div>
-      <button onClick={() => handleOnClick(googleAuthProvider)}>Google</button>
-      <button onClick={() => handleOnClick(githubAuthProvider)}>Github</button>
-    </div>
+    <>
+      <div>
+        <button onClick={() => handleOnClick(googleAuthProvider)}>Google</button>
+        <button onClick={() => handleOnClick(githubAuthProvider)}>Github</button>
+      </div>
+      {errormsg}
+    </>
   )
   if (user.isLoggedIn) {
     loginOptions = <Redirect to='/' />
