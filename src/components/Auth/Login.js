@@ -35,7 +35,8 @@ const Login = () => {
   }
 
   let loginOptions = (
-    <div className='d-flex justify-content-center align-items-center' style={{ height: '300px' }}>
+    <div className='d-flex justify-content-center align-items-center flex-column' style={{ height: '300px' }}>
+      { errormsg}
       <div className='d-flex justify-content-center align-items-center flex-column'>
         <button type='button' className='btn btn-danger btn-block' onClick={() => handleOnClick(googleAuthProvider)}>
           <i className="fab fa-google"></i>  Sign in with <b>Google</b>
@@ -43,7 +44,6 @@ const Login = () => {
         <button type='button' className='btn btn-light btn-block' onClick={() => handleOnClick(githubAuthProvider)}>
           <i className="fab fa-github"></i>  Sign in with <b>Github</b></button>
       </div>
-      { errormsg}
     </div>
   )
   if (user.isLoggedIn) {
