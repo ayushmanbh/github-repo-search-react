@@ -9,7 +9,10 @@ const Login = () => {
 
   const handleOnClick = async (provider) => {
     const result = await socialMediaAuth(provider)
-    if (result.email) {
+    console.log(result);
+    if (result.code) {
+      showError(true, 'Error: ' + result.message + ' Please try again.')
+    } else if (result.email) {
       const userInfo = {
         uid: result?.uid,
         displayName: result?.displayName,
@@ -32,13 +35,16 @@ const Login = () => {
   }
 
   let loginOptions = (
-    <>
-      <div>
-        <button onClick={() => handleOnClick(googleAuthProvider)}>Google</button>
-        <button onClick={() => handleOnClick(githubAuthProvider)}>Github</button>
+    <div className='d-flex justify-content-center align-items-center' style={{ height: '300px' }}>
+      <div className='d-flex justify-content-center align-items-center flex-column'>
+        <button type='button' className='btn btn-danger btn-block' onClick={() => handleOnClick(googleAuthProvider)}>
+          <i className="fab fa-google"></i>  Sign in with <b>Google</b>
+        </button>
+        <button type='button' className='btn btn-light btn-block' onClick={() => handleOnClick(githubAuthProvider)}>
+          <i className="fab fa-github"></i>  Sign in with <b>Github</b></button>
       </div>
-      {errormsg}
-    </>
+      { errormsg}
+    </div>
   )
   if (user.isLoggedIn) {
     loginOptions = <Redirect to='/' />
