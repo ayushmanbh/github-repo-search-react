@@ -18,15 +18,26 @@ const Results = () => {
       <>
         <ul className="list-group mb-3">
           {results.items ? results.items.map((item, index) => {
-            return <li key={index} className='list-group-item'>
-              <div className="m-1 d-flex justify-content-between" >
-                <div style={{ maxWidth: '100px' }}><img className='img-fluid rounded-circle shadow border border-dark' src={item.owner.avatar_url} alt={item.name} /></div>
-                <div className="d-flex justify-content-center text-right flex-column">
-                  <a href={item.html_url} target='_blanck' rel='noopener noreferrer'><h3>{item.name}</h3></a>
-                  <p>{item.description}</p>
+            return (
+              <li
+                key={index}
+                className='list-group-item'>
+                <div className="m-1 d-flex justify-content-between" >
+                  <div style={{ maxWidth: '100px' }}>
+                    <img
+                      className='img-fluid rounded-circle shadow border border-dark'
+                      src={item.owner.avatar_url}
+                      alt={item.name} />
+                  </div>
+                  <div className="d-flex justify-content-center text-right flex-column">
+                    <a href={item.html_url} target='_blanck' rel='noopener noreferrer'>
+                      <h3>{item.name}</h3>
+                    </a>
+                    <p>{item.description}</p>
+                  </div>
                 </div>
-              </div>
-            </li>
+              </li>
+            )
           }) : <small className="font-italic">So empty here</small>}
         </ul>
       </>

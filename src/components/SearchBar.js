@@ -1,14 +1,20 @@
-import React from 'react'
+import { useEffect, useRef } from 'react'
 import { useGlobalContext } from '../context'
 
 const SearchBar = () => {
+  const inputRef = useRef(null)
   const { query, setQuery, setIsLoading, showError, setResults } = useGlobalContext()
+
+  useEffect(() => {
+    inputRef.current.focus()
+  }, [])
 
   const fetchResults = async () => {
     const repoResults = await fetch('https://api.github.com/search/repositories?q=' + query + '&per_page=20')
     if (!repoResults) {
       throw new Error('Something Went Wrong')
     }
+    console.log(repoResults);
     const data = await repoResults.json()
     return data
   }
@@ -41,7 +47,16 @@ const SearchBar = () => {
 
   return (
     <div className="input-group my-3">
-      <input type="text" className="form-control" placeholder="Search Github Repositories" aria-label="Recipient's username" aria-describedby="button-addon2" value={query} onChange={(e) => setQuery(e.target.value)} />
+      <input
+        type="text"
+        className="form-control"
+        placeholder="Search Github Repositories"
+        aria-label="Recipient's username"
+        aria-describedby="button-addon2"
+        ref={inputRef}
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+      />
       <div className="input-group-append">
         <button className="btn btn-primary" type="button" id="button-addon2" onClick={handleClick}>Search</button>
       </div>
